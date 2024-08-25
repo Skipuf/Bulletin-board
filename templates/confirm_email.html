@@ -1,0 +1,23 @@
+{% extends 'default.html' %}
+{% load static %}
+
+{% block title %}
+    Подтвержение почты
+{% endblock title %}
+
+{% block head %}
+    <link href="{% static 'css/posts.css' %}" rel="stylesheet" />
+{% endblock head %}
+
+{% block content %}
+    <div class="m-5 card rounded-5 bluefon">
+        <div class="card-body">
+            <h5 class="card-title text-center">Подтверждение почты:</h5>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="greenfon w-100 inputbutton" type="submit" value="Отправить" />
+            </form>
+        </div>
+    </div>
+{% endblock content %}

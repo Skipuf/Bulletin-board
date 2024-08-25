@@ -1,0 +1,35 @@
+{% extends 'default.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+   Объявление
+{% endblock title %}
+
+{% block head %}
+    <link href="{% static 'css/posts.css' %}" rel="stylesheet" />
+{% endblock head %}
+
+{% block content %}
+    <div class="m-5 card w-75 rounded-5 bluefon">
+        <div class="card-body">
+            <h5 class="card-title fs-3">{{ post.title }}</h5>
+            <h6 class="card-subtitle mb-2 fs-4">{{ post.author.username }} - {{ post.date_posted|date:"d.m.Y" }}</h6>
+            <p class="card-text fs-4">{{ post.content|safe }}</p>
+            {% if post.author == author %}
+                <a href="{% url 'post_update' post.id %}" class="greenfon">Редактировать</a>
+                <a href="{% url 'post_delete' post.id %}" class="redfon">Удалить</a>
+            {% else %}
+                <div class="m-5 card">
+                    <div class="card-body">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input class="greenfon inputbutton" type="submit" value="Save" />
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

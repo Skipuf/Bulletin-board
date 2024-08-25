@@ -1,0 +1,18 @@
+{% extends 'default.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="m-5 card rounded-5 bluefon">
+        <div class="card-body"> 
+            <h5 class="card-title text-center">Вход в аккаунт:</h5>
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="greenfon mb-2 inputbutton" value="Войти">
+                <input type="hidden" name="next"  value="{{ next }}">
+            </form>
+            <h5 class="card-title">или</h5>
+            <a href="{% url 'signup' %}" class="orangefon inputbutton">Регистрация</a>
+        </div>
+    </div>
+{% endblock %}

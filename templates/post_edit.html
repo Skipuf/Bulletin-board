@@ -1,0 +1,22 @@
+{% extends 'default.html' %}
+{% load static %}
+
+{% block title %}
+    Объявления
+{% endblock title %}
+
+{% block head %}
+    <link href="{% static 'css/posts.css' %}" rel="stylesheet" />
+{% endblock head %}
+
+{% block content %}
+    <div class="m-5 card w-75 rounded-5 bluefon card-body">
+        <p class="text-white fs-1 text-center">Объявление</p>
+        <form action="" method="post" class="form-floating">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ form.media }}
+            <input class="greenfon inputbutton" type="submit" value="Save" />
+        </form>
+    </div>
+{% endblock content %}

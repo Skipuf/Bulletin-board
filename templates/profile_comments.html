@@ -1,0 +1,76 @@
+{% extends 'default.html' %}
+{% load custom_tags %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}
+   Доска объявлений
+{% endblock title %}
+
+{% block head %}
+    <link href="{% static 'css/posts.css' %}" rel="stylesheet" />
+{% endblock head %}
+
+{% block content %}
+    <div class="m-5 card w-75 rounded-5 bluefon">
+        <div class="card-body">
+            <h5 class="card-title text-center fs-2">Профиль</h5>
+            <h5 class="card-title fs-3">{{ current_user.username }}</h5>
+            <h6 class="card-subtitle mb-2 fs-4">{{ current_user.email }}</h6>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="redfon inputbutton">Выйти из аккаунта</button>
+            </form>
+        </div>
+    </div>
+    <div class="d-flex w-75">
+        <a href="{% url 'account_profile' %}" class="w-50 bluebuttonfon rounded-end-0 border-end rounded-start-5">Мои объявления</a>
+        <a href="" class="w-50 bluebuttonfon rounded-start-0 border-start rounded-end-5">Ответы на мои объявления</a>
+    </div>
+    <div class="m-5 card w-75 rounded-5 bluefon p-2">
+        <div class="card-body">
+            <h5 class="card-title fs-3 text-center">Фильтр</h5>
+            <form action="" method="get" class="form-floating">
+                {{ filterset.form.as_p }}
+                <input class="orangefon inputbutton" type="submit" value="Найти" />
+            </form>
+        </div>
+    </div>
+    {% if comments %}
+        <h2 class="bluefon bluefontext text-center mt-5 fs-2">Ответы</h2>
+        {% for comment in comments %}
+            {% if comment.status == 'Not defined' %}
+                <div class="m-5 card w-75 rounded-5 bluefon">
+                    <div class="card-body">
+                        <h5 class="card-title fs-3">Ответ на запись "{{ comment.post.title }}"</h5>
+                        <h5 class="card-title fs-3">Отправитель: {{ comment.author.username }}</h5>
+                        <p class="card-text fs-4">Сообщение: {{ comment.text }}</p>
+                        <a href="{% url 'accept_comment' comment.pk %}" class="greenfon">Принять</a>
+                        <a href="{% url 'reject_comment' comment.pk %}" class="redfon">Отклонить</a>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <h2 class="bluefon bluefontext text-center mt-5 fs-2">Ответов нет</h2>
+    {% endif %}
+    <div class="m-5 d-flex justify-content-center">
+        {% if page_obj.has_previous %}
+            <a class="bluebuttonfon rounded-end-0 border-end rounded-start-5" href="?{% url_replace page=1 %}">Начало</a>
+            {% if page_obj.previous_page_number != 0 %}
+                <a class="bluebuttonfon border-end rounded-0" href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+            {% endif %}
+        {% else %}
+            <a class="bluebuttonfon rounded-end-0 border-end rounded-start-5" aria-disabled="true">Начало</a>
+        {% endif %}
+
+        <a class="bluefon border-end rounded-0" aria-disabled="true">{{ page_obj.number }}</a>
+
+        {% if page_obj.has_next %}
+            <a class="bluebuttonfon border-end rounded-0" href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+            <a class="bluebuttonfon rounded-start-0 rounded-end-5" href="?{% url_replace page=paginator.num_pages %}">Конец</a>
+        {% else %}
+            <a class="bluebuttonfon rounded-start-0 rounded-end-5" aria-disabled="true">Конец</a>
+        {% endif %}
+    </div>
+{% endblock content %}

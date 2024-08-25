@@ -1,0 +1,70 @@
+img{
+    width: 100%;
+    height: auto;
+}
+
+body {
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top center;
+    background-repeat: no-repeat;
+}
+
+label{
+
+}
+
+input, button, a, .bluefontext{
+    padding: 0.35rem 1.5rem;
+    border-radius: 2rem;
+    border: 0;
+    font-size: 1.25rem;
+    text-decoration: none;
+}
+
+a, .inputbutton, button {
+    padding: 0.35rem 3rem;
+}
+
+.bluetext {
+    color: #004D6E;
+}
+
+.redtext {
+    color: #AA3428FF;
+}
+
+.orangefon {
+    background: #D8A36F;
+    color: white;
+    text-align: center;
+}
+
+.bluefon {
+    background: rgba(60, 142, 166, 0.8);
+    color: white;
+}
+
+.greenfon {
+    background: #198754FF;
+    color: white;
+    text-align: center;
+}
+
+.redfon {
+    background: #AA3428FF;
+    color: white;
+    text-align: center;
+}
+
+.bluebuttonfon {
+    background: #2D728F;
+    color: white;
+    text-align: center;
+}
+
+.yellowbuttonfon {
+    background: #EABD61;
+    color: white;
+    text-align: center;
+}
